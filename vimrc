@@ -1,3 +1,6 @@
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 function Maximize_Window()
   silent !wmctrl -r :ACTIVE: -b add,fullscreen
 endfunction 
