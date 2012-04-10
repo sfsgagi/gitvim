@@ -8,6 +8,7 @@ endfunction
 set guifont=Inconsolata\ 14
 set nu
 syntax on
+filetype plugin on
 filetype indent on
 " set autoindent
 set smartindent

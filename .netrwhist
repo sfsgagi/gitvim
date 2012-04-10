@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/ubuntu/stats/app/views/client_pages'
 let g:netrw_dirhist_2='/home/ubuntu/.config'
 let g:netrw_dirhist_3='/home/ubuntu/pf3/public/javascripts'
 let g:netrw_dirhist_4='/home/ubuntu/pf3/public/stylesheets/v3'
+let g:netrw_dirhist_5='/home/ubuntu/pf3/public/javascripts/v3'
