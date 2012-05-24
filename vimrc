@@ -23,6 +23,8 @@ set shiftwidth=2
 set softtabstop=2
 "use 2 char positions for a TAB
 set tabstop=2
-set ttyfast
+"set ttyfast
 colorscheme wombat
 :vmap <C-C> "+y
+autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
+
