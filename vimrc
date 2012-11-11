@@ -45,4 +45,8 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>p "+P
 
 autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
-
+hi Cursor guibg=#008B00
+au InsertLeave * hi Cursor guibg=#008B00
+au InsertEnter * hi Cursor guibg=#008B00
+highlight iCursor guibg=#008B00
+set guicursor+=i:ver30-iCursor
