@@ -1,0 +1,19 @@
+function ffmi {
+  find db/migrate -name "*$1*" -exec gvim {} \;
+}
+
+function ffm {
+  find app/models -name "*$1*" -exec gvim {} \;
+}
+
+function ffc {
+  find app/controllers -name "*$1*" -exec gvim {} \;
+}
+
+function ffv {
+  find app/views/$1 -name "*$2*" -exec gvim {} \;
+}
+
+function op {
+  gvim $( find . -name "*$1*" | head -n 1 )
+}
