@@ -7,6 +7,7 @@ endfunction
 "au GUIEnter * call Maximize_Window()
 set guifont=Inconsolata\ 14
 set nu
+set hidden
 syntax on
 filetype plugin on
 filetype indent on
@@ -43,11 +44,13 @@ let mapleader=","
 " ,W will delete trailing whitespaces
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 nnoremap <leader>p "+P
+nnoremap <leader>M :%s/\r\(\n\)/\1/g<cr>
 
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
+nnoremap <silent> <leader><leader> <c-^>
 
 autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
 hi Cursor guibg=#008B00
@@ -55,3 +58,22 @@ au InsertLeave * hi Cursor guibg=#008B00
 au InsertEnter * hi Cursor guibg=#008B00
 highlight iCursor guibg=#008B00
 set guicursor+=i:ver30-iCursor
+
+" Protect large files from sourcing and other overhead.
+" Files become read only
+if !exists("my_auto_commands_loaded")
+  let my_auto_commands_loaded = 1
+  " Large files are > 10M
+  " Set options:
+  " eventignore+=FileType (no syntax highlighting etc
+  " assumes FileType always on)
+  " noswapfile (save copy of file)
+  " bufhidden=unload (save memory when other file is viewed)
+  " buftype=nowritefile (is read-only)
+  " undolevels=-1 (no undo possible)
+  let g:LargeFile = 1024 * 1024 * 1
+  augroup LargeFile
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+    augroup END
+  endif
+
