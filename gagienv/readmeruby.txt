@@ -507,3 +507,9 @@ sudo hp-plugin
 
 # za tagovanje
 git tag -a 0.6.1-trials -m 'v0.6.1 with addition of trials feature'
+
+# drajveri nvidia gui ako se javi fliker http://askubuntu.com/questions/309239/nvidia-driver-install
+sudo apt-get isntall nvidia-current-updates
+
+# mysql user creation with all privileges on dbname 
+grant all on dbname.* to username@localhost identified by 'password';

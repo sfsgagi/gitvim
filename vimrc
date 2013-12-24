@@ -53,6 +53,8 @@ nnoremap <silent> ]B :blast<CR>
 nnoremap <silent> <leader><leader> <c-^>
 
 autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
+autocmd FileType eruby unlet b:did_indent | runtime! indent/javascript.vim
+
 hi Cursor guibg=#008B00
 au InsertLeave * hi Cursor guibg=#008B00
 au InsertEnter * hi Cursor guibg=#008B00
