@@ -17,6 +17,7 @@ git submodule update
 cd ~
 ln -s ~/.vim/gagienv/.bash_aliases ~/.bash_aliases
 ln -s ~/.vim/gagienv/.bash_helper ~/.bash_helper
+ln -s ~/.vim/gagienv/.irbrc ~/.irbrc
 
 cat <<EOF >> ~/.bashrc
 # additional helper functions

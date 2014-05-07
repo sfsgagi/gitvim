@@ -513,3 +513,44 @@ sudo apt-get isntall nvidia-current-updates
 
 # mysql user creation with all privileges on dbname 
 grant all on dbname.* to username@localhost identified by 'password';
+
+# za dispatcher treba lighttpd (apt-get)
+# i config u /etc/lighttpd/lighttpd.conf
+
+# restart:
+ps aux | grep fcgi
+kill -7 pid
+rundj
+
+# djapp/gateway/settings.py
+MySql = True
+
+# syncdb
+python manage.py syncdb
+python manage.py migrate locker
+python manage.py migrate apps
+
+# local gateway
+user cpanel1
+pass 12345678
+
+# ssh 
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@server.example.com
+
+#.ssh/config
+Host sb
+  HostName scratchboard.mainframe2.com
+  User scratchboard
+  IdentityFile ~/.ssh/id_rsa
+
+# after that we can use:
+ssh sb
+
+# scratchboard copy subfolder dashboard
+scp -r sb:/home/scratchboard/scratchboard.mainframe2.com/dashboard/ /home/gagi/sb/
+
+# delete swap files
+find . -name *.swp -delete
+
+# ssl addon
+heroku certs:add ~/cert/4f0cfd816a5fab.crt ~/cert/mainframe2.key --remote develop

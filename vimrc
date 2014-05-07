@@ -40,6 +40,7 @@ set listchars+=extends:> " The character to show in the last column when wrap is
 set listchars+=precedes:< " The character to show in the last column when wrap is off and the line continues beyond the right of the screen
 
 let mapleader=","
+noremap ' ,
 
 " ,W will delete trailing whitespaces
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -51,9 +52,11 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 nnoremap <silent> <leader><leader> <c-^>
+noremap <F5> :CommandTFlush<CR>
 
 autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
-autocmd FileType eruby unlet b:did_indent | runtime! indent/javascript.vim
+" messes up eruby indentation
+"autocmd FileType eruby unlet b:did_indent | runtime! indent/javascript.vim
 
 hi Cursor guibg=#008B00
 au InsertLeave * hi Cursor guibg=#008B00
