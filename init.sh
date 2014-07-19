@@ -10,6 +10,13 @@ ln -s ~/.vim/gvimrc ~/.gvimrc
 
 # Switch to the `~/.vim` directory, and fetch submodules:
 
+# nodejs and jshint installation
+sudo apt-get install python-software-properties
+sudo apt-add-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+sudo npm install -g jshint
+
 cd ~/.vim
 git submodule init
 git submodule update
