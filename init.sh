@@ -17,6 +17,15 @@ sudo apt-get update
 sudo apt-get install nodejs
 sudo npm install -g jshint
 
+# for command-t
+# vim --version | grep ruby
+# will show e.g. -lruby1.8
+# rvm use 1.8 (install if necessary)
+# ruby -v should now be the same as in v
+#cd ~/.vim/bundle/command-t/ruby/command-t
+#ruby extconf.rb
+#make
+
 cd ~/.vim
 git submodule init
 git submodule update
