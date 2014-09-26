@@ -23,3 +23,6 @@
 [submodule "bundle/vim-repeat"]
 	path = bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
+[submodule "bundle/jshint2.vim"]
+	path = bundle/jshint2.vim
+	url = git@github.com:Shutnik/jshint2.vim.git
