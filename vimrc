@@ -30,6 +30,7 @@ colorscheme wombat
 vmap <C-c> "+y
 vmap <C-x> "+c
 
+"zE unfold all
 
 :set list
 " List chars
@@ -53,6 +54,9 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 nnoremap <silent> <leader><leader> <c-^>
 noremap <F5> :CommandTFlush<CR>
+
+map <leader>gs :CommandTFlush<cr>\|:CommandT app/assets/stylesheets<cr>
+
 
 autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
 " messes up eruby indentation

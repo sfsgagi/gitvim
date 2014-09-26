@@ -553,4 +553,9 @@ scp -r sb:/home/scratchboard/scratchboard.mainframe2.com/dashboard/ /home/gagi/s
 find . -name *.swp -delete
 
 # ssl addon
-heroku certs:add ~/cert/4f0cfd816a5fab.crt ~/cert/mainframe2.key --remote develop
+heroku certs:add ~/cert/492d22b431c38.crt ~/cert/mainframe2.key --remote mrk
+
+
+# paperclip update images
+rake paperclip:refresh CLASS=Screenshot --trace
+

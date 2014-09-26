@@ -17,3 +17,10 @@ function ffv {
 function op {
   gvim $( find . -name "*$1*" | head -n 1 )
 }
+
+function gitff {
+  for branch in $(git rev-list --all)
+  do
+    git ls-tree -r --name-only $branch | grep "$1" | sed 's/^/'$branch': /'
+  done
+}
