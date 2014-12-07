@@ -393,6 +393,14 @@ sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /et
 sudo apt-get update
 sudo apt-get install google-chrome-stable
 
+# Google chrome update (bolja procedura)
+# prvo fix ako ima duplicate sources (obicno ima google.list i google-chrome.list koje su iste pa se obrise google-chrome.list): http://askubuntu.com/questions/120621/how-to-fix-duplicate-sources-list-entry 
+sudo apt-get update
+# onda na osnovu: http://superuser.com/questions/130260/how-to-update-google-chrome-in-ubuntu 
+sudo apt-get --only-upgrade install google-chrome-stable
+sudo pkill -15 google-chrome
+
+
 # Koristiti ovo iznad a ovo ispod je za referencu
 # add google chrome (instructions from: http://www.ubuntuupdates.org/ppa/google_chrome)
 Setup key with:
@@ -554,8 +562,12 @@ find . -name *.swp -delete
 
 # ssl addon
 heroku certs:add ~/cert/492d22b431c38.crt ~/cert/mainframe2.key --remote mrk
+# ssl update
+heroku certs:update ~/cert/new242423.crt ~/cert/mainframe2.key --remote mrk
 
 
 # paperclip update images
 rake paperclip:refresh CLASS=Screenshot --trace
 
+# list all files that ever existed on git (add: | grep filename )
+ git log --pretty=format: --name-status | cut -f2- | sort -u
