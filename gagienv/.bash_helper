@@ -1,26 +1,46 @@
 function ffmi {
-  find db/migrate -name "*$1*" -exec gvim {} \;
+  find db/migrate -name "*$1*" -exec vim {} \;
 }
 
 function ffm {
-  find app/models -name "*$1*" -exec gvim {} \;
+  find app/models -name "*$1*" -exec vim {} \;
 }
 
 function ffc {
-  find app/controllers -name "*$1*" -exec gvim {} \;
+  find app/controllers -name "*$1*" -exec vim {} \;
 }
 
 function ffv {
-  find app/views/$1 -name "*$2*" -exec gvim {} \;
+  find app/views/$1 -name "*$2*" -exec vim {} \;
 }
 
 function op {
-  gvim $( find . -name "*$1*" | head -n 1 )
+  vim $( find . -name "*$1*" | head -n 1 )
 }
 
+# search for a file in branches
 function gitff {
   for branch in $(git rev-list --all)
   do
     git ls-tree -r --name-only $branch | grep "$1" | sed 's/^/'$branch': /'
   done
 }
+
+# list branches sorted by recent changes with the date of last commit, commiter and comment
+function glist {
+  git for-each-ref --sort=-committerdate refs/remotes/ --format="%(color:green)%(committerdate:iso8601) %(color:red)%(refname:short) %(color:yellow)%(authorname)%(color:reset) %(contents:subject)" | sed "s/refs\/heads\///g" | sed ${1-15}q
+}
+
+# local branch list
+function gllist {
+  git for-each-ref --sort=-committerdate refs/ --format="%(color:green)%(committerdate:iso8601) %(color:red)%(refname:short) %(color:yellow)%(authorname)%(color:reset) %(contents:subject)" | sed "s/refs\/heads\///g" | sed ${1-15}q
+}
+
+# list recent files in a subdir
+function lsrecent() {
+    local d="${2:-.}"
+    local m="${1:-10}"
+
+   find "$d" -type f -print0 | xargs -0 stat -f "m%t%Sm %N" | sort -nr | head -$m | cut -f2-
+}
+
