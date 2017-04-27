@@ -111,7 +111,6 @@ http://stackoverflow.com/questions/5288875/vimdiff-what-are-the-most-frequently-
 zo -- open folded text
 zc -- close folded text 
 
-
 % - matching bracket u Vim
 
 git za remote branch
@@ -452,6 +451,7 @@ rake db:drop
 rake db:create
 # heroku restore locally to development database
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U myuser -d myapp_development latest.dump
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U mf2 -d cpanel_prod_test latest.dump
 
 # checkout the same commit as on heroku
 rake db:seed:dump FILE=db/heroku_dump.rb
@@ -571,3 +571,141 @@ rake paperclip:refresh CLASS=Screenshot --trace
 
 # list all files that ever existed on git (add: | grep filename )
  git log --pretty=format: --name-status | cut -f2- | sort -u
+
+# forgotten files
+# stage them ->
+git add .
+git commit --amend
+
+# restore pg dump to sql
+pg_restore file.dump > file.sql
+
+
+# S3cmd (to install use: brew install s3cmd)
+# if not configured call configure first and fill the access codes when asked
+s3cmd --configure
+# lists buckets
+s3cmd ls 
+# make bucket
+s3cmd mb s3://bucket-name
+# lists content of the bucket
+s3cmd ls s3://bucket-name
+
+# git stash pop on wrong branch (merge conflict and stash lost)
+git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )
+# find stash hash - search for line containing (refs/stash)
+# reset merge conflict
+git reset HEAD --hard
+# go to proper branch
+git stash apply hash_you_found_before
+
+# delete local branches that are merged into master
+git branch --merged master | egrep -v 'master|develop' | xargs -n 1 git branch -d
+
+# list local branches that are merged into master with info whether they exist remotely
+git branch --merged master | egrep -v 'master|develop' | awk '{gsub(/ /,"",$0);mrk="LOCAL";{if(system("git branch -r --contains " $0 "| grep " $0 " >/dev/null") == 0) mrk = "LOCAL AND REMOTE" };print$0,mrk}'
+
+# lists and deletes local and remote
+git branch --merged master | egrep -v 'master|develop' | awk '{gsub(/ /,"",$0);mrk="DELETED LOCAL";system("git branch -d " $0);{if(system("git branch -r --contains origin/" $0 "| grep " $0 " >/dev/null") == 0) {mrk = mrk " REMOTE"; system("git push origin --delete " $0) }};print$0,mrk}'
+
+# lists remote branches merged to master
+git branch -r --merged master | egrep -v 'master|develop' | awk '{gsub(/ /,"",$0);mrk = " " $0;frk = " " system("git show -s " $0 " --pretty=format:\"%ai %an\"");print mrk frk}' | sort -n
+
+# deletes remote branches merged to master
+git branch -r --merged master | egrep -v 'master|develop' | awk '{gsub(/origin\//,"",$0);print $0}' | awk '{mrk = $0;system("git push origin --delete " $0);print mrk, $0}'
+
+
+
+
+# restarting delayed job
+heroku ps:scale worker=0 --remote staging
+heroku ps:scale worker=1 --remote staging
+
+# reverting a single migration
+rake db:migrate:down VERSION=20150120233320
+
+# ~/.gemrc
+gem: --no-document
+
+# squash commits or rebase stuck (edit the file below)
+gvim .git/rebase-merge/git-rebase-todo
+git rebase --continue
+
+
+# small snippet to find out where is irritating log coming from
+module Kernel
+  def p(*args) 
+    puts(caller[0])
+  end
+end
+
+# stash untracked files as well
+git stash save -u
+
+# reset last commit and turn it to unstaged changes
+git reset HEAD^
+
+# abort rebase/merge
+git merge --abort
+git rebase --abort
+
+
+# Fixing detached HEAD: (reference: http://stackoverflow.com/a/5772882/177154)
+# Tried git checkout release/staging and got this:
+# 
+# Note: checking out 'release/staging'.
+
+# You are in 'detached HEAD' state.
+# ...
+
+git checkout -b fix_head # create a tmp branch that reattaches current detached head to it
+git branch -u origin/release/staging # link the new branch with origin/release/staging
+git pull # sync with remote branch
+git branch -f release/staging fix_head
+git checkout release/staging
+git branch -u origin/release/staging
+git branch -d fix_head
+# still gettign ambiguous so:
+# git show-ref | grep staging
+# had some directory under .git due to bad usage of update-ref so this fixed it:
+git update-ref -d release/staging
+# the same command should be used for other ambiguous refnames (in general you should have only one refs/heads per branch e.g. develop -> refs/remotes do not count)
+# in my case I had (git show-ref | grep develop): 
+61be8a7755e2ce1867a51ff837439934bf5ae3d4 refs/heads/develop    <----- 1
+b14d76e3a77822c7986893960f2a9ae0bb8497dd refs/heads/feature/test-branch-develop
+f478222a50e6443207bb77d67a922d64e11dfcca refs/heads/origin/develop    <----- 2
+b052d2822877924d011e70a433b900855714c5bf refs/remotes/develop/master
+89ae77eb5571157e1247d248ded1c1347fa00843 refs/remotes/origin/develop
+fceb85e96e9559f5f07bfb7eb88d81e36253f335 refs/remotes/origin/release/develop
+7e5647b9c4341f70c3a1423668c39aa30acd0548 refs/remotes/origin/release/pre-develop
+# the command below fixed the issue:
+git update-ref -d refs/heads/origin/develop
+
+
+# if postgre service cannot run for some reason, delete: /usr/local/var/postgres/postmaster.pid
+brew services restart postgresql
+
+# heroku logs
+heroku drains --remote appname
+heroku drains:add https://logs-01.loggly.com/bulk/TOKEN/tag/heroku --app HEROKU_APP_NAME
+heroku drains:add https://logs-01.loggly.com/bulk/xxxxxx/tag/cpanel_staging --remote staging
+
+# Last commit date change
+git commit --amend --date="Fri Jul 29 22:02 2016 -0700"
+
+
+# messing withe PG sequences
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{table}_id_seq RESTART WITH #{last_id + 1}")
+# get all sequences
+ActiveRecord::Base.connection.execute("SELECT c.relname FROM pg_class c WHERE c.relkind = 'S';").each { |r| p r; };
+# last value SQL:
+SELECT last_value FROM test_id_seq;
+# multiprocess errors on uniqueness (has_one), use gem consistency_fail
+gem install consistency_fail
+consistency_fail # returns potential relationships missing unique index
+
+# Command-t RVM and ruby update
+1. Vim and Command-T must be built with same version of Ruby. 
+2. For people using RVM, you need to install a version of Ruby like this rvm install VERSION --enable-shared
+3. Then, you need to reinstall Vim, brew uninstall vim && brew install vim
+4. Finally, re-compile Command-t, make clean && ruby extconf.rb && make
