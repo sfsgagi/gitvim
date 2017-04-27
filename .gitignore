@@ -1,2 +1,6 @@
 .netrwhist
 *.swp
+*.swo
+
+# Ignore DS_Store
+**/.DS_Store
