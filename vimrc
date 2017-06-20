@@ -91,7 +91,7 @@ set noswapfile
 "
 "let g:CommandTWildIgnore=&wildignore . ",**/node_modules/*"
 "let g:CommandTFileScanner="watchman"
-let g:CommandTFileScanner="git"
+let g:CommandTFileScanner="watchman"
 let g:CommandTCancelMap = ['<ESC>', '<C-c>']
 set wildignore+=node_modules
 
