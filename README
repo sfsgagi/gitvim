@@ -4,6 +4,8 @@ http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-patho
 
 Installation:
 
+(check init.sh for automated/more uptodate installation instructions)
+
 git clone git@github.com:sfsgagi/gitvim.git ~/.vim
 
 Create symlinks:
