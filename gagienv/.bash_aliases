@@ -1,4 +1,4 @@
-alias vim="/usr/local/Cellar/vim/7.4.2109/bin/vim"
+alias vim="/usr/bin/vim"
 alias g='grep -rin --color=auto --exclude-dir=\*.git\* --exclude=\*.min.\* --exclude-dir=\*ckeditor/lang\* --exclude-dir=\*db/data\* --exclude=\*.log --exclude-dir=\*tmp\/cache\* --exclude-dir=\*coverage\* --exclude-dir=\*public/assets\* --exclude-dir=\*node_modules\* --exclude-dir=\*app/assets/webpack\* --exclude=tags --exclude-dir=\*db/views\*'
 alias gl='grep -rin --color=auto --exclude-dir=\*.git\* --exclude=\*.min.\* --exclude-dir=\*ckeditor/lang\*'
 alias gcase='grep -rn --exclude-dir=\*.git\* --exclude=\*.min.\* --exclude-dir=\*ckeditor/lang\*'

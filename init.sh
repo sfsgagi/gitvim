@@ -11,10 +11,11 @@ ln -s ~/.vim/gvimrc ~/.gvimrc
 # Switch to the `~/.vim` directory, and fetch submodules:
 
 # nodejs and jshint installation
-sudo apt-get install python-software-properties
-sudo apt-add-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install nodejs
+# if needed
+#sudo apt-get install python-software-properties
+#sudo apt-add-repository ppa:chris-lea/node.js
+#sudo apt-get update
+#sudo apt-get install nodejs
 sudo npm install -g jshint
 
 # for command-t
@@ -22,7 +23,9 @@ sudo npm install -g jshint
 # will show e.g. -lruby1.8
 # rvm use 1.8 (install if necessary)
 # ruby -v should now be the same as in v
-#cd ~/.vim/bundle/command-t/ruby/command-t
+#cd ~/.vim/bundle/command-t/ruby/command-t/ext/command-t
+# if getting error on mac, install XCode, start it and then:
+# sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 #ruby extconf.rb
 #make
 
