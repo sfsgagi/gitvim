@@ -1,3 +1,5 @@
+":runtime colors/sane_colors.vim
+":so $VIMRUNTIME/syntax/hitest.vim # to test colors
 autocmd!
 
 call pathogen#runtime_append_all_bundles()
@@ -59,6 +61,7 @@ autocmd!
 "iterm does not requrie this
 "autocmd VimLeave * :!open -a Terminal
 autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
+autocmd FileType go map <leader>r :w<CR>:!go run %<CR>
 autocmd FileType ruby map <leader>r :w<CR>:!ruby %<CR>
 autocmd FileType ruby map <leader>s :w<CR>:!rspec %<CR>
 autocmd FileType java map <F9> :w<CR> :compiler java
@@ -193,3 +196,9 @@ map <leader>n :call RenameFile()<cr>
 "map <leader>t :CtrlP<cr>
 "map <leader>b :CtrlPBuffer<cr>
 
+"Using https://github.com/vrybas/vim-flog
+map <leader>f :call FlogToggle()<cr>
+hi SignLowComplexity ctermfg=34 guifg=#00af00 "rgb=0,175,0
+hi SignMediumComplexity ctermfg=186 guifg=#d7d787 "rgb=215,215,135
+hi SignHighComplexity ctermfg=196 guifg=#ff0000 "rgb=255,0,0
+let g:flog_enable=0
