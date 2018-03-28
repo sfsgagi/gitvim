@@ -2,11 +2,19 @@
   "rooms": [
     {
       "id": 1,
-      "name": "Test"
+      "name": "Test",
+      "reserved": false
     },
     {
       "id": 2,
-      "name": "Tacolicious"
+      "name": "Tacolicious",
+      "reserved": false
+    }
+  ],
+  "gsuites": [
+    {
+      "id": 1,
+      "email": "fancy.spark@spark.com"
     }
   ],
   "profile": {
