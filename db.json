@@ -3,12 +3,12 @@
     {
       "id": 1,
       "name": "Test",
-      "reserved": false
+      "reserved": "false"
     },
     {
       "id": 2,
       "name": "Tacolicious",
-      "reserved": false
+      "reserved": "false"
     }
   ],
   "gsuites": [
