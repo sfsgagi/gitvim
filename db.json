@@ -1,0 +1,15 @@
+{
+  "rooms": [
+    {
+      "id": 1,
+      "name": "Test"
+    },
+    {
+      "id": 2,
+      "name": "Tacolicious"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
