@@ -64,6 +64,7 @@ autocmd FileType ruby map <F9> :w<CR>:!ruby -c %<CR>
 autocmd FileType go map <leader>r :w<CR>:!go run %<CR>
 autocmd FileType ruby map <leader>r :w<CR>:!ruby %<CR>
 autocmd FileType ruby map <leader>s :w<CR>:!rspec %<CR>
+autocmd FileType python map <leader>r :w<CR>:!python3 %<CR>
 autocmd FileType java map <F9> :w<CR> :compiler java
 autocmd FileType js :setlocal sw=4 ts=4 sts=4
 "au InsertLeave * hi Cursor guibg=#008B00
